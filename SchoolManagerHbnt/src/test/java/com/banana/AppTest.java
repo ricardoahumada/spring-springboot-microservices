@@ -6,6 +6,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
@@ -15,6 +16,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = {SpringConfig.class})
+@ActiveProfiles("dev")
 public class AppTest {
 
     private EntityManager entityManager;
@@ -34,6 +36,8 @@ public class AppTest {
     @Test
     public void load() {
         assertTrue(true);
+        System.out.println("entityManager:"+entityManager);
+        assertNotNull(entityManager);
     }
 
 

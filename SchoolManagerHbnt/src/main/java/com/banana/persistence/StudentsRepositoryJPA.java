@@ -14,7 +14,9 @@ public class StudentsRepositoryJPA implements StudentsRepositoryInf {
 
     @Override
     public void add(Student estudiante) {
-
+        em.getTransaction().begin();
+        em.persist(estudiante);
+        em.getTransaction().commit();
     }
 
     @Override
@@ -29,7 +31,7 @@ public class StudentsRepositoryJPA implements StudentsRepositoryInf {
 
     @Override
     public Student getById(Long id) {
-        return null;
+        return em.find(Student.class, id);
     }
 
 
