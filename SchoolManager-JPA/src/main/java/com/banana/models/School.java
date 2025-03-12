@@ -20,7 +20,8 @@ public class School {
     @Column(name = "nombre")
     private String name;
 
-    @Transient
+    @OneToMany(mappedBy = "escuela")
+//    @JoinColumn(name = "school_id")
     private List<Student> estudiantes;
 
     /*public School(Long id, String name) {
