@@ -3,6 +3,7 @@ package com.banana.models;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -27,6 +28,14 @@ public class Student {
     @ManyToOne()
     @JoinColumn(name = "school")
     private School escuela;
+
+    @ManyToMany(/*mappedBy = "estudiantes"*/)
+     @JoinTable(
+            name = "proyectos_estudiantes",
+            joinColumns = {@JoinColumn(name = "estudiante_id")},
+            inverseJoinColumns = {@JoinColumn(name = "project_id")}
+    )
+    private Set<Project> proyectos;
 
     public Student(Long id, String nombre, String apellido, int curso) {
         this.id = id;
