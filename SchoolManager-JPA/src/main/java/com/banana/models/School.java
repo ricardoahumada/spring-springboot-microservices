@@ -2,6 +2,7 @@ package com.banana.models;
 
 import lombok.*;
 
+import javax.persistence.*;
 import java.util.List;
 
 @Getter
@@ -9,18 +10,23 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
+@Entity
+@Table(name = "escuela")
 public class School {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "nombre")
     private String name;
 
+    @Transient
     private List<Student> estudiantes;
 
     /*public School(Long id, String name) {
         this.id = id;
         this.name = name;
     }*/
-
 
     public void addStudent(Student estudiante) {
         estudiantes.add(estudiante);
