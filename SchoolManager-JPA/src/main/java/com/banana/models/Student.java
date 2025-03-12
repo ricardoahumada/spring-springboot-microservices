@@ -25,11 +25,11 @@ public class Student {
 
     private int curso;
 
-    @ManyToOne()
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "school")
     private School escuela;
 
-    @ManyToMany(/*mappedBy = "estudiantes"*/)
+    @ManyToMany(/*mappedBy = "estudiantes"*/ fetch = FetchType.EAGER)
      @JoinTable(
             name = "proyectos_estudiantes",
             joinColumns = {@JoinColumn(name = "estudiante_id")},
