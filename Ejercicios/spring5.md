@@ -19,7 +19,7 @@ Necesitamos introducir el framework Spring en la aplicación base para obtener s
 Actualiza el proyecto MyShoppingCart para usar Spring JPA.
 - Genera el wiring Spring-JPA simplificado
 - Anota las entidades para configurar los mapeos con las tablas de bb.dd. Obvia las relaciones entre entidades.
-- Reemplaza las clases de repositorio por
+- Genera clases de repositorio basadas en JPA.
 - Revisa y pasa los tests para comprobar que la capa de persistencia valida correctamente.
 
 ## Ejercicio 3
