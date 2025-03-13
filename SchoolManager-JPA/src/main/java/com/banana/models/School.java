@@ -20,7 +20,7 @@ public class School {
     @Column(name = "nombre")
     private String name;
 
-    @OneToMany(mappedBy = "escuela")
+    @OneToMany(mappedBy = "escuela", fetch = FetchType.EAGER)
 //    @JoinColumn(name = "school_id")
     private List<Student> estudiantes;
 

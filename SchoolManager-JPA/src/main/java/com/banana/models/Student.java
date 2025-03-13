@@ -12,6 +12,7 @@ import java.util.Set;
 @ToString
 @Entity
 @Table(name = "estudiante")
+@NamedQuery(name = "Student.GetByIdx",query = "SELECT s FROM Student s")
 public class Student {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,11 +26,11 @@ public class Student {
 
     private int curso;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.ALL})
     @JoinColumn(name = "school")
     private School escuela;
 
-    @ManyToMany(/*mappedBy = "estudiantes"*/ fetch = FetchType.EAGER)
+    @ManyToMany(/*mappedBy = "estudiantes"*/ fetch = FetchType.LAZY)
      @JoinTable(
             name = "proyectos_estudiantes",
             joinColumns = {@JoinColumn(name = "estudiante_id")},
