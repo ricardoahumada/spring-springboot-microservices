@@ -24,7 +24,10 @@ class StudentsServiceITest {
     private IStudentService service;
 
     @Test
-    void storeStudent() {
+    void storeStudent() throws Exception {
+        Student newStd = new Student(null, "Matias", "Mattel", 2);
+        service.storeStudent(newStd);
+        assertNotNull(newStd);
     }
 
     @Test
