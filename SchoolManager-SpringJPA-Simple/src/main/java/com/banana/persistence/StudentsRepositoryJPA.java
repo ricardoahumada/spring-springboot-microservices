@@ -4,11 +4,12 @@ import com.banana.models.Student;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
-import javax.transaction.Transactional;
+import java.sql.SQLException;
 import java.util.List;
 
 @Setter
@@ -20,7 +21,7 @@ public class StudentsRepositoryJPA implements StudentsRepositoryInf {
     private EntityManager em;
 
     @Override
-    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    @Transactional
     public void add(Student estudiante) throws SQLException {
         if (estudiante.isValid()) em.persist(estudiante);
         else throw new SQLException("Estudiante no válido:" + estudiante);
