@@ -40,6 +40,7 @@ public class StudentsService implements IStudentService {
     }
 
     @Override
+    @Transactional()
     public boolean storeStudentList(List<Student> students) throws Exception {
         int i = 1;
         for (Student aStd : students) {
