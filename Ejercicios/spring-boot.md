@@ -2,19 +2,19 @@
 
 ## Ejercicio 1
 Crea un proyecto SpringBoot web.
-- Lleva los componentes proyecto MyShoppingCart a el proyecto spring boot. 
+- Lleva los componentes proyecto MyShoppingCart al proyecto spring boot. 
 	- O bien modifica el proyecto original MyShoppingCart para que sea un proyecto web.
 - Modifica las propiedades para usar archivos yaml
 - Genera dos perfiles: dev y prod
 - El perfil dev debe usar el puerto 8080 y debe conectarse a una base de datos H2. 
 	- Debe precargar el conjunto de datos de desarrollo.
-	- https://gist.github.com/ricardoahumada/1e0e3e4ff105025edb637892bd815d96
 	- Debe mostrar los logs en nivel debug y los sql
 - El perfil prod deber usar el puerto 8443 y debe conectarse a una base da datos Mysql. 
 	- No debe cargar datos
 	- Debe mostrar los logs en nivel error
 - Añade un endpoint "usuarios" que siempre devuelva el texto "usuarios" para todas las peticiones.
 - Añade un endpoint "productos" que siempre devuelva el texto "productos" para todas las peticiones.
+
 
 ## Ejercicio 2
 - Para el recurso de usuarios y productos de MyShoppingCartApp define los endpoints pertinentes e impleméntalos.
