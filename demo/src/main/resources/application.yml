@@ -1,0 +1,25 @@
+spring:
+  application.name: appdemo
+  profiles.active: dev
+
+server.port: 8080
+
+
+---
+spring:
+  config.activate.on-profile: dev
+  application.name: appdemo-dev
+
+server.port: 9090
+
+#debug: true
+
+logging.file.path: /var/tmp
+
+logging.level.es.netmind.micro.demo.controller: ERROR
+
+
+---
+spring:
+  config.activate.on-profile: prod
+  application.name: appdemo-prod
