@@ -16,7 +16,7 @@ server.port: 9090
 
 logging.file.path: /var/tmp
 
-logging.level.es.netmind.micro.demo.controller: ERROR
+#logging.level.es.netmind.micro.demo.controller: ERROR
 
 
 ---
