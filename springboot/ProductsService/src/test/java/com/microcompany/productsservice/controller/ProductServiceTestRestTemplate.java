@@ -17,7 +17,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 // TODO: uncomment and implement methods
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-//@Sql("classpath:_data.sql_")
+//@Sql("classpath:data.sql")
 public class ProductServiceTestRestTemplate {
     // @Value(value = "${local.server.port}")
     @LocalServerPort
