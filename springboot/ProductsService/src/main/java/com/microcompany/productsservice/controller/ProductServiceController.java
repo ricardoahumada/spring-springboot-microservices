@@ -15,7 +15,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/products")
-public class ProductServiceController {
+public class ProductServiceController implements IProductServiceController {
     private static final Logger logger = LoggerFactory.getLogger(ProductServiceController.class);
 
     @Autowired
@@ -24,7 +24,7 @@ public class ProductServiceController {
     @Autowired
     private ProductsRepository productsRepository;
 
-    @RequestMapping(value = "", method = RequestMethod.GET)
+    @Override
     public ResponseEntity getAllProducts() {
         List<Product> products = productsRepository.findAll();
         if (products != null && products.size() > 0) return ResponseEntity.status(HttpStatus.OK.value()).body(products);
@@ -32,25 +32,24 @@ public class ProductServiceController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND.value()).body(new StatusMessage(HttpStatus.NOT_FOUND.value(), "No se han encontrado productos"));
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public ResponseEntity getAProduct(@PathVariable("id") Long pid) {
+    @Override
+    public ResponseEntity getAProduct(Long pid) {
         Product prod = productsRepository.findById(pid).orElse(null);
         if (prod != null) return ResponseEntity.status(HttpStatus.OK.value()).body(prod);
         else
             return ResponseEntity.status(HttpStatus.NOT_FOUND.value()).body(new StatusMessage(HttpStatus.NOT_FOUND.value(), "No se han encontrado producto con id:" + pid));
     }
 
-    //    @RequestMapping(value = "", method = RequestMethod.POST)
-    @PostMapping(value = "")
-    public ResponseEntity createProduct(@RequestBody Product aProd) {
+    @Override
+    public ResponseEntity createProduct(Product aProd) {
         productsRepository.save(aProd);
         if (aProd != null && aProd.getId() > 0) return ResponseEntity.status(HttpStatus.CREATED.value()).body(aProd);
         else
             return new ResponseEntity<>(new StatusMessage(HttpStatus.BAD_REQUEST.value(), "No se ha podido crear el producto. Revisa la petición."), HttpStatus.BAD_REQUEST);
     }
 
-    @PutMapping(value = "/{pid}")
-    public ResponseEntity updateProduct(@PathVariable Long pid, @RequestBody Product aProd) {
+    @Override
+    public ResponseEntity updateProduct(Long pid, Product aProd) {
         aProd.setId(pid);
         productsRepository.save(aProd);
         if (aProd != null && aProd.getId() > 0) return ResponseEntity.status(HttpStatus.ACCEPTED.value()).body(aProd);
@@ -58,8 +57,8 @@ public class ProductServiceController {
             return new ResponseEntity<>(new StatusMessage(HttpStatus.NOT_MODIFIED.value(), "No se ha podido crear el producto. Revisa la petición."), HttpStatus.NOT_MODIFIED);
     }
 
-    @DeleteMapping(value = "/{pid}")
-    public ResponseEntity deleteProduct(@PathVariable Long pid) {
+    @Override
+    public ResponseEntity deleteProduct(Long pid) {
         Product prod = productsRepository.findById(pid).orElse(null);
         if (prod != null) {
             productsRepository.deleteById(pid);
@@ -68,8 +67,8 @@ public class ProductServiceController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND.value()).body(new StatusMessage(HttpStatus.NOT_FOUND.value(), "No se han encontrado producto con id:" + pid));
     }
 
-    @PostMapping(value = "/{pid}/clone")
-    public ResponseEntity cloneProduct(@PathVariable Long pid) {
+    @Override
+    public ResponseEntity cloneProduct(Long pid) {
         Product prod = servicioProds.duplicate(pid);
         if (prod != null) {
             return ResponseEntity.status(HttpStatus.CREATED.value()).body(prod);
