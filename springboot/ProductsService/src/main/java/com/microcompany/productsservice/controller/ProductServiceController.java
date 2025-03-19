@@ -40,13 +40,41 @@ public class ProductServiceController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND.value()).body(new StatusMessage(HttpStatus.NOT_FOUND.value(), "No se han encontrado producto con id:" + pid));
     }
 
-//    @RequestMapping(value = "", method = RequestMethod.POST)
+    //    @RequestMapping(value = "", method = RequestMethod.POST)
     @PostMapping(value = "")
     public ResponseEntity createProduct(@RequestBody Product aProd) {
         productsRepository.save(aProd);
         if (aProd != null && aProd.getId() > 0) return ResponseEntity.status(HttpStatus.CREATED.value()).body(aProd);
         else
             return new ResponseEntity<>(new StatusMessage(HttpStatus.BAD_REQUEST.value(), "No se ha podido crear el producto. Revisa la petición."), HttpStatus.BAD_REQUEST);
+    }
+
+    @PutMapping(value = "/{pid}")
+    public ResponseEntity updateProduct(@PathVariable Long pid, @RequestBody Product aProd) {
+        aProd.setId(pid);
+        productsRepository.save(aProd);
+        if (aProd != null && aProd.getId() > 0) return ResponseEntity.status(HttpStatus.ACCEPTED.value()).body(aProd);
+        else
+            return new ResponseEntity<>(new StatusMessage(HttpStatus.NOT_MODIFIED.value(), "No se ha podido crear el producto. Revisa la petición."), HttpStatus.NOT_MODIFIED);
+    }
+
+    @DeleteMapping(value = "/{pid}")
+    public ResponseEntity deleteProduct(@PathVariable Long pid) {
+        Product prod = productsRepository.findById(pid).orElse(null);
+        if (prod != null) {
+            productsRepository.deleteById(pid);
+            return ResponseEntity.noContent().build();
+        }else
+            return ResponseEntity.status(HttpStatus.NOT_FOUND.value()).body(new StatusMessage(HttpStatus.NOT_FOUND.value(), "No se han encontrado producto con id:" + pid));
+    }
+
+    @PostMapping(value = "/{pid}/clone")
+    public ResponseEntity cloneProduct(@PathVariable Long pid) {
+        Product prod = servicioProds.duplicate(pid);
+        if (prod != null) {
+            return ResponseEntity.status(HttpStatus.CREATED.value()).body(prod);
+        }else
+            return ResponseEntity.status(HttpStatus.NOT_FOUND.value()).body(new StatusMessage(HttpStatus.NOT_FOUND.value(), "No se han encontrado producto con id:" + pid));
     }
 
 
