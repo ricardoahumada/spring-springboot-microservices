@@ -34,10 +34,12 @@ public class ProductServiceController implements IProductServiceController {
 
     @Override
     public ResponseEntity getAProduct(Long pid) {
-        Product prod = productsRepository.findById(pid).orElse(null);
+        /*Product prod = productsRepository.findById(pid).orElse(null);
         if (prod != null) return ResponseEntity.status(HttpStatus.OK.value()).body(prod);
         else
-            return ResponseEntity.status(HttpStatus.NOT_FOUND.value()).body(new StatusMessage(HttpStatus.NOT_FOUND.value(), "No se han encontrado producto con id:" + pid));
+            return ResponseEntity.status(HttpStatus.NOT_FOUND.value()).body(new StatusMessage(HttpStatus.NOT_FOUND.value(), "No se han encontrado producto con id:" + pid));*/
+        Product prod = productsRepository.findById(pid).orElseThrow(() -> new ProductNotfoundException("Producto no existe:" + pid));
+        return ResponseEntity.status(HttpStatus.OK.value()).body(prod);
     }
 
     @Override
