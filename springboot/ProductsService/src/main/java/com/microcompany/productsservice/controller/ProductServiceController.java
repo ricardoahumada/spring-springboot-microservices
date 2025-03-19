@@ -1,5 +1,6 @@
 package com.microcompany.productsservice.controller;
 
+import com.microcompany.productsservice.exception.NewProductException;
 import com.microcompany.productsservice.exception.ProductNotfoundException;
 import com.microcompany.productsservice.model.Product;
 import com.microcompany.productsservice.model.StatusMessage;
@@ -44,10 +45,12 @@ public class ProductServiceController implements IProductServiceController {
 
     @Override
     public ResponseEntity createProduct(Product aProd) {
-        productsRepository.save(aProd);
-        if (aProd != null && aProd.getId() > 0) return ResponseEntity.status(HttpStatus.CREATED.value()).body(aProd);
-        else
-            return new ResponseEntity<>(new StatusMessage(HttpStatus.BAD_REQUEST.value(), "No se ha podido crear el producto. Revisa la petición."), HttpStatus.BAD_REQUEST);
+        if (aProd.getName() != null) {
+            productsRepository.save(aProd);
+            return ResponseEntity.status(HttpStatus.CREATED.value()).body(aProd);
+        /*else
+            return new ResponseEntity<>(new StatusMessage(HttpStatus.BAD_REQUEST.value(), "No se ha podido crear el producto. Revisa la petición."), HttpStatus.BAD_REQUEST);*/
+        } else throw new NewProductException("No se ha podido crear el producto. Revisa la petición.");
     }
 
     @Override
