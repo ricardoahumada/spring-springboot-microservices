@@ -1,9 +1,9 @@
 package com.microcompany.productsservice.exception;
 
-public class NewProductException extends GlobalProductException {
+public class GlobalProductException extends RuntimeException {
     private static final long serialVersionUID = 1L;
 
-    public NewProductException(String message) {
+    public GlobalProductException(String message) {
         super(message);
     }
 }
