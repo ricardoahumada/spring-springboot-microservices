@@ -8,13 +8,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/products")
+@RequestMapping(value = "/products", produces = {MediaType.APPLICATION_JSON_VALUE}, consumes = {MediaType.APPLICATION_JSON_VALUE})
 public class ProductServiceController implements IProductServiceController {
     private static final Logger logger = LoggerFactory.getLogger(ProductServiceController.class);
 
@@ -64,7 +65,7 @@ public class ProductServiceController implements IProductServiceController {
         if (prod != null) {
             productsRepository.deleteById(pid);
             return ResponseEntity.noContent().build();
-        }else
+        } else
             return ResponseEntity.status(HttpStatus.NOT_FOUND.value()).body(new StatusMessage(HttpStatus.NOT_FOUND.value(), "No se han encontrado producto con id:" + pid));
     }
 
@@ -73,10 +74,9 @@ public class ProductServiceController implements IProductServiceController {
         Product prod = servicioProds.duplicate(pid);
         if (prod != null) {
             return ResponseEntity.status(HttpStatus.CREATED.value()).body(prod);
-        }else
+        } else
             return ResponseEntity.status(HttpStatus.NOT_FOUND.value()).body(new StatusMessage(HttpStatus.NOT_FOUND.value(), "No se han encontrado producto con id:" + pid));
     }
-
 
 
 }
