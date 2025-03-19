@@ -5,10 +5,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/products")
+@RequestMapping("/default")
 public interface IProductServiceController {
     @RequestMapping(value = "", method = RequestMethod.GET)
-    ResponseEntity getAllProducts();
+    ResponseEntity getAllProducts(@RequestParam(value = "nombrewith", defaultValue = "") String filtro);
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     ResponseEntity getAProduct(@PathVariable("id") Long pid);
