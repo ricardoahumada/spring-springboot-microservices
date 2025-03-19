@@ -1,5 +1,6 @@
 package com.microcompany.productsservice.controller;
 
+import com.microcompany.productsservice.exception.ProductNotfoundException;
 import com.microcompany.productsservice.model.Product;
 import com.microcompany.productsservice.model.StatusMessage;
 import com.microcompany.productsservice.persistence.ProductsRepository;
@@ -15,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/products", produces = {MediaType.APPLICATION_JSON_VALUE}, consumes = {MediaType.APPLICATION_JSON_VALUE})
+@RequestMapping(value = "/products")
 public class ProductServiceController implements IProductServiceController {
     private static final Logger logger = LoggerFactory.getLogger(ProductServiceController.class);
 
@@ -30,8 +31,7 @@ public class ProductServiceController implements IProductServiceController {
 //        List<Product> products = productsRepository.findAll();
         List<Product> products = servicioProds.getProductsByText(filtro);
         if (products != null && products.size() > 0) return ResponseEntity.status(HttpStatus.OK.value()).body(products);
-        else
-            return ResponseEntity.status(HttpStatus.NOT_FOUND.value()).body(new StatusMessage(HttpStatus.NOT_FOUND.value(), "No se han encontrado productos"));
+        else throw new ProductNotfoundException("No hay productos");
     }
 
     @Override
