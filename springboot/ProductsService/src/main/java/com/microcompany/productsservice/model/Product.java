@@ -5,6 +5,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
+import com.microcompany.productsservice.contraints.SerialNumber;
 import com.microcompany.productsservice.exception.GlobalProductException;
 import lombok.*;
 
@@ -23,7 +24,8 @@ public class Product {
     private String name;
 
     @NotBlank
-    @Pattern(regexp = "[1-9]{3}-[1-9]{3}-[1-9]{4}")
+//    @Pattern(regexp = "[1-9]{3}-[1-9]{3}-[1-9]{4}")
+    @SerialNumber()
     private String serial;
 
 }
