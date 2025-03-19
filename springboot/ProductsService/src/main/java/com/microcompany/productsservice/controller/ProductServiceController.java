@@ -45,12 +45,12 @@ public class ProductServiceController implements IProductServiceController {
 
     @Override
     public ResponseEntity createProduct(Product aProd) {
-        if (aProd.getName() != null) {
+//        if (aProd.getName() != null) {
             productsRepository.save(aProd);
             return ResponseEntity.status(HttpStatus.CREATED.value()).body(aProd);
         /*else
             return new ResponseEntity<>(new StatusMessage(HttpStatus.BAD_REQUEST.value(), "No se ha podido crear el producto. Revisa la petición."), HttpStatus.BAD_REQUEST);*/
-        } else throw new NewProductException("No se ha podido crear el producto. Revisa la petición.");
+//        } else throw new NewProductException("No se ha podido crear el producto. Revisa la petición.");
     }
 
     @Override

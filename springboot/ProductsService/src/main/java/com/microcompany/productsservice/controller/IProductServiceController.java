@@ -5,6 +5,8 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping("/default")
 public interface IProductServiceController {
@@ -16,7 +18,7 @@ public interface IProductServiceController {
 
     //    @RequestMapping(value = "", method = RequestMethod.POST)
     @PostMapping(value = "", consumes = {MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
-    ResponseEntity createProduct(@RequestBody Product aProd);
+    ResponseEntity createProduct(@Valid @RequestBody Product aProd);
 
     @PutMapping(value = "/{pid}")
     ResponseEntity updateProduct(@PathVariable Long pid, @RequestBody Product aProd);
