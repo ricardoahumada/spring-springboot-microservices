@@ -1,5 +1,6 @@
 package com.microcompany.productsservice.service;
 
+import com.microcompany.productsservice.exception.ProductNotfoundException;
 import com.microcompany.productsservice.model.Product;
 import com.microcompany.productsservice.persistence.ProductsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,13 +19,15 @@ public class ProductsService {
     EntityManager em;
 
     public List<Product> getProductsByText(String text) {
-        return productsRepository.findByNameContaining(text);
+        List<Product> prods = productsRepository.findByNameContaining(text);
+        if (prods != null && prods.size() > 0) return prods;
+        else throw new ProductNotfoundException("No hay productos");
     }
 
     public Product duplicate(Long pid) {
         Product prod = productsRepository.findById(pid).get();
         em.detach(prod);
         prod.setId(null);
-        return  productsRepository.save(prod);
+        return productsRepository.save(prod);
     }
 }

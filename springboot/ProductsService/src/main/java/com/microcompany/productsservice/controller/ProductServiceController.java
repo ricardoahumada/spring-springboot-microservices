@@ -28,10 +28,8 @@ public class ProductServiceController implements IProductServiceController {
 
     @Override
     public ResponseEntity getAllProducts(String filtro) {
-//        List<Product> products = productsRepository.findAll();
         List<Product> products = servicioProds.getProductsByText(filtro);
-        if (products != null && products.size() > 0) return ResponseEntity.status(HttpStatus.OK.value()).body(products);
-        else throw new ProductNotfoundException("No hay productos");
+        return ResponseEntity.status(HttpStatus.OK.value()).body(products);
     }
 
     @Override
