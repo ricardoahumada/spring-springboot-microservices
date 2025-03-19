@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
+import javax.validation.ConstraintViolationException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -38,6 +39,11 @@ public class GlocalExceptionController {
 
     @ExceptionHandler(value = MethodArgumentTypeMismatchException.class)
     public ResponseEntity handleMismatchEx(MethodArgumentTypeMismatchException ex) {
+        return ResponseEntity.status(HttpStatus.PRECONDITION_FAILED.value()).body(new StatusMessage(HttpStatus.PRECONDITION_FAILED.value(), ex.getMessage()));
+    }
+
+    @ExceptionHandler(value = ConstraintViolationException.class)
+    public ResponseEntity handleConstraintViolationException(ConstraintViolationException ex) {
         return ResponseEntity.status(HttpStatus.PRECONDITION_FAILED.value()).body(new StatusMessage(HttpStatus.PRECONDITION_FAILED.value(), ex.getMessage()));
     }
 
