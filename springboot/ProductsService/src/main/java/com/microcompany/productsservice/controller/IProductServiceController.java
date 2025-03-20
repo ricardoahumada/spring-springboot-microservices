@@ -1,6 +1,10 @@
 package com.microcompany.productsservice.controller;
 
 import com.microcompany.productsservice.model.Product;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -14,7 +18,15 @@ import javax.validation.constraints.Size;
 @RequestMapping("/default")
 @Validated
 //@CrossOrigin(origins = {"*"}, allowedHeaders = "*")
+@Tag(name = "Endpoints Productos", description = "Endpoints para la gestión de productos")
 public interface IProductServiceController {
+
+    @Operation(summary = "Lista de productos", description = "Método para solicitar la lista de productos, con capacidad de filtrado")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Si existen productos"),
+            @ApiResponse(responseCode = "404", description = "Si no existen productos, incluso para el filtrado")
+            @ApiResponse(responseCode = "412", description = "Si el filtro no cumple con los constraints")
+    })
     @RequestMapping(value = "", method = RequestMethod.GET, produces = {MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE})
     ResponseEntity getAllProducts(@Size(min = 3, max = 10) @RequestParam(value = "nombrewith", defaultValue = "") String filtro);
 
