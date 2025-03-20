@@ -25,7 +25,7 @@ public class Product {
 
     @NotBlank
 //    @Pattern(regexp = "[1-9]{3}-[1-9]{3}-[1-9]{4}")
-    @SerialNumber()
+    @SerialNumber(message = "{serial.format}")
     private String serial;
 
 }

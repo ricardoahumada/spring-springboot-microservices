@@ -17,7 +17,7 @@ public class Internationalization implements WebMvcConfigurer {
     public LocaleResolver localeResolver() {
 //        SessionLocaleResolver sessionLocaleResolver = new SessionLocaleResolver();
         AcceptHeaderLocaleResolver sessionLocaleResolver = new AcceptHeaderLocaleResolver();
-        sessionLocaleResolver.setDefaultLocale(new Locale("es","es"));
+        sessionLocaleResolver.setDefaultLocale(Locale.getDefault());
         return sessionLocaleResolver;
     }
 
