@@ -13,6 +13,7 @@ import javax.validation.constraints.Size;
 @RestController
 @RequestMapping("/default")
 @Validated
+//@CrossOrigin(origins = {"*"}, allowedHeaders = "*")
 public interface IProductServiceController {
     @RequestMapping(value = "", method = RequestMethod.GET, produces = {MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE})
     ResponseEntity getAllProducts(@Size(min = 3, max = 10) @RequestParam(value = "nombrewith", defaultValue = "") String filtro);

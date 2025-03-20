@@ -19,8 +19,8 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank(message = "No debe ser vacio")
-    @Size(min = 3, max = 20, message = "Debe tener entre 3 y 20 chars")
+    @NotBlank
+    @Size(min = 3, max = 20)
     private String name;
 
     @NotBlank
