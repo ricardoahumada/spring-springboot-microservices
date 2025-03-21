@@ -16,6 +16,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collection;
 import java.util.List;
 
 @RestController
@@ -33,8 +34,9 @@ public class ProductServiceController implements IProductServiceController {
     private ProductModelAssembler productModelAssembler;
 
     @Override
-    public ResponseEntity getAllProducts(String filtro) {
-        List<Product> products = servicioProds.getProductsByText(filtro);
+    public ResponseEntity<Collection<ProductResource>> getAllProducts(String filtro) {
+//        Collection<ProductResource> products = productModelAssembler.toCollectionModel(servicioProds.getProductsByText(filtro)).getContent();
+        Collection<ProductResource> products = productModelAssembler.toModel(servicioProds.getProductsByText(filtro));
         return ResponseEntity.status(HttpStatus.OK.value()).body(products);
     }
 
