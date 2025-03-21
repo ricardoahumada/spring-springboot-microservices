@@ -2,6 +2,7 @@ package com.microcompany.productsservice.controller;
 
 import com.microcompany.productsservice.dto.ProductDTO;
 import com.microcompany.productsservice.dto.ProductMapper;
+import com.microcompany.productsservice.exception.GlobalProductException;
 import com.microcompany.productsservice.exception.NewProductException;
 import com.microcompany.productsservice.exception.ProductNotfoundException;
 import com.microcompany.productsservice.model.Product;
@@ -45,22 +46,22 @@ public class ProductServiceController implements IProductServiceController {
     }
 
     @Override
-    public ResponseEntity createProduct(Product aProd) {
-//        if (aProd.getName() != null) {
-            productsRepository.save(aProd);
-            return ResponseEntity.status(HttpStatus.CREATED.value()).body(aProd);
-        /*else
-            return new ResponseEntity<>(new StatusMessage(HttpStatus.BAD_REQUEST.value(), "No se ha podido crear el producto. Revisa la petición."), HttpStatus.BAD_REQUEST);*/
-//        } else throw new NewProductException("No se ha podido crear el producto. Revisa la petición.");
+    public ResponseEntity<ProductDTO> createProduct(ProductDTO aProdDTO) {
+        Product aProd = ProductMapper.INSTANCE.productDTOToProduct((aProdDTO));
+        productsRepository.save(aProd);
+        aProdDTO = ProductMapper.INSTANCE.productToProductDTO(aProd);
+        return ResponseEntity.status(HttpStatus.CREATED.value()).body(aProdDTO);
     }
 
     @Override
-    public ResponseEntity updateProduct(Long pid, Product aProd) {
+    public ResponseEntity<ProductDTO> updateProduct(Long pid, ProductDTO aProdDTO) {
+        Product aProd = ProductMapper.INSTANCE.productDTOToProduct((aProdDTO));
         aProd.setId(pid);
         productsRepository.save(aProd);
-        if (aProd != null && aProd.getId() > 0) return ResponseEntity.status(HttpStatus.ACCEPTED.value()).body(aProd);
-        else
-            return new ResponseEntity<>(new StatusMessage(HttpStatus.NOT_MODIFIED.value(), "No se ha podido crear el producto. Revisa la petición."), HttpStatus.NOT_MODIFIED);
+        aProdDTO = ProductMapper.INSTANCE.productToProductDTO(aProd);
+        if (aProdDTO != null && aProdDTO.getId() > 0)
+            return ResponseEntity.status(HttpStatus.ACCEPTED.value()).body(aProdDTO);
+        else throw new GlobalProductException("No se ha podido crear el producto. Revisa la petición.");
     }
 
     @Override
@@ -74,12 +75,12 @@ public class ProductServiceController implements IProductServiceController {
     }
 
     @Override
-    public ResponseEntity cloneProduct(Long pid) {
+    public ResponseEntity<ProductDTO> cloneProduct(Long pid) {
         Product prod = servicioProds.duplicate(pid);
         if (prod != null) {
-            return ResponseEntity.status(HttpStatus.CREATED.value()).body(prod);
-        } else
-            return ResponseEntity.status(HttpStatus.NOT_FOUND.value()).body(new StatusMessage(HttpStatus.NOT_FOUND.value(), "No se han encontrado producto con id:" + pid));
+            ProductDTO aProdDTO = ProductMapper.INSTANCE.productToProductDTO(prod);
+            return ResponseEntity.status(HttpStatus.CREATED.value()).body(aProdDTO);
+        } else throw new GlobalProductException("No se ha encontrado producto con id:" + pid);
     }
 
 

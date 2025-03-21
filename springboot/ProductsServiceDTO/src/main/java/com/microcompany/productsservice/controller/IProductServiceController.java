@@ -41,17 +41,17 @@ public interface IProductServiceController {
 
     //    @RequestMapping(value = "", method = RequestMethod.POST)
     @PostMapping(value = "", consumes = {MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
-    ResponseEntity createProduct(
+    ResponseEntity<ProductDTO> createProduct(
             @io.swagger.v3.oas.annotations.parameters.RequestBody(description = "Producto a crear son id", required = true)
-            @Valid @RequestBody Product aProd
+            @Valid @RequestBody ProductDTO aProd
     );
 
     @PutMapping(value = "/{pid}")
-    ResponseEntity updateProduct(@PathVariable Long pid, @RequestBody Product aProd);
+    ResponseEntity<ProductDTO> updateProduct(@PathVariable Long pid, @RequestBody ProductDTO aProd);
 
     @DeleteMapping(value = "/{pid}")
     ResponseEntity deleteProduct(@PathVariable Long pid);
 
     @PostMapping(value = "/{pid}/clone")
-    ResponseEntity cloneProduct(@PathVariable Long pid);
+    ResponseEntity<ProductDTO> cloneProduct(@PathVariable Long pid);
 }
