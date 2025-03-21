@@ -70,8 +70,7 @@ public class ProductServiceController implements IProductServiceController {
         if (prod != null) {
             productsRepository.deleteById(pid);
             return ResponseEntity.noContent().build();
-        } else
-            return ResponseEntity.status(HttpStatus.NOT_FOUND.value()).body(new StatusMessage(HttpStatus.NOT_FOUND.value(), "No se han encontrado producto con id:" + pid));
+        } else throw new GlobalProductException("No se ha borrado producto con id:" + pid);
     }
 
     @Override
