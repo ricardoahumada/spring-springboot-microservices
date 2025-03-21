@@ -11,6 +11,8 @@ server:
       include-stacktrace: on_param
       include-exception: false
 
+products.openapi.dev-url: "http://localhost:9090"
+products.openapi.prod-url: "http://localhost:8443/api/v1"
 
 ---
 spring:
