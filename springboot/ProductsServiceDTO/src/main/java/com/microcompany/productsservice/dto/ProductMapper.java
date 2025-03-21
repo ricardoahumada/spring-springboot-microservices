@@ -5,6 +5,8 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 
+import java.util.Collection;
+
 @Mapper
 public interface ProductMapper {
     ProductMapper INSTANCE = Mappers.getMapper(ProductMapper.class);
@@ -17,4 +19,7 @@ public interface ProductMapper {
     @Mapping(source = "numSerie", target = "serial")
     Product productDTOToProduct(ProductDTO productDTO);
 
+    public Collection<ProductDTO> productsToProductDTOs(Collection<Product> products);
+
+    public Collection<Product> productDTOsToProducts(Collection<ProductDTO> productDTOs);
 }

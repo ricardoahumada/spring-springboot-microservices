@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.Size;
+import java.util.Collection;
 
 @RestController
 @RequestMapping("/default")
@@ -30,9 +31,9 @@ public interface IProductServiceController {
             @ApiResponse(responseCode = "412", description = "Si el filtro no cumple con los constraints")
     })
     @RequestMapping(value = "", method = RequestMethod.GET, produces = {MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE})
-    ResponseEntity getAllProducts(
+    ResponseEntity<Collection<ProductDTO>> getAllProducts(
             @Parameter(name = "filtro", description = "texto de filtrado 3-20 chars", example = "Hola")
-            @Size(min = 3, max = 10) @RequestParam(value = "nombrewith", defaultValue = "") String filtro
+            /*@Size(min = 3, max = 10)*/ @RequestParam(value = "nombrewith", defaultValue = "") String filtro
     );
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = {MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE})
