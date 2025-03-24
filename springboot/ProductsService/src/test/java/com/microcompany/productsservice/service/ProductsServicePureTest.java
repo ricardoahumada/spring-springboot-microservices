@@ -1,5 +1,6 @@
 package com.microcompany.productsservice.service;
 
+import com.microcompany.productsservice.exception.NewProductException;
 import com.microcompany.productsservice.exception.ProductNotfoundException;
 import com.microcompany.productsservice.model.Product;
 import com.microcompany.productsservice.persistence.ProductsRepository;
@@ -18,23 +19,40 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Import;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import javax.persistence.EntityManagerFactory;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
-//@ExtendWith(SpringExtension.class)
-@ExtendWith(MockitoExtension.class)
-@MockitoSettings(strictness = Strictness.LENIENT)
+@ExtendWith(SpringExtension.class)
+//@Import(ProductsService.class)
+//@ExtendWith(MockitoExtension.class)
+//@MockitoSettings(strictness = Strictness.LENIENT)
 public class ProductsServicePureTest {
 
-    @InjectMocks
+    @TestConfiguration
+    static class ProductServiceConf{
+        @Bean
+        public ProductsService getProductServiceBean(){
+            return new ProductsService();
+        }
+    }
+
+    //    @InjectMocks
+    @Autowired
     ProductsService prodService;
 
-    @Mock
+    //    @Mock
+    @MockBean
     ProductsRepository productsRepositoryMock;
+
+    @MockBean
+    EntityManagerFactory emf;
 
     @BeforeEach
     public void setUp() {
@@ -47,6 +65,12 @@ public class ProductsServicePureTest {
         Mockito.when(productsRepositoryMock.findByNameContaining("Fake")).thenReturn(productsFake);
         Mockito.when(productsRepositoryMock.findByNameContaining("a")).thenReturn(null);
 
+        Mockito.when(productsRepositoryMock.save(Mockito.any(Product.class)))
+                .thenAnswer(elem -> {
+                    Product ap = (Product) elem.getArguments()[0];
+                    ap.setId(100L);
+                    return ap;
+                });
     }
 
     @Test
@@ -66,7 +90,29 @@ public class ProductsServicePureTest {
 
     @Test
     void givenValidProduct_WhenCreate_ThenThenIsNotNull() {
+        Product newProd = new Product(null, "New Fake prod", "999-222-3333");
+        prodService.create(newProd);
+        assertThat(newProd.getId()).isGreaterThan(0);
+        assertThat(newProd.getId()).isEqualTo(100l);
+
     }
 
+    @Test
+    void givenInvalidNullsProduct_WhenCreate_ThenException() {
+        Product newProd = new Product(null, null, null);
+
+        assertThatExceptionOfType(NewProductException.class).isThrownBy(() -> {
+            prodService.create(newProd);
+        });
+    }
+
+    @Test
+    void givenInvalidFormatProduct_WhenCreate_ThenException() {
+        Product newProd = new Product(null, "abc", "111-222-333");
+
+        assertThatExceptionOfType(NewProductException.class).isThrownBy(() -> {
+            prodService.create(newProd);
+        });
+    }
 
 }
