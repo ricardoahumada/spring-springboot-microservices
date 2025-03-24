@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.microcompany.productsservice.ProductsServiceApplication;
 import com.microcompany.productsservice.model.Product;
 import com.microcompany.productsservice.persistence.ProductsRepository;
+import com.microcompany.productsservice.util.JsonUtil;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -15,14 +16,12 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
-import static org.hamcrest.Matchers.hasItem;
+import static org.hamcrest.Matchers.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-
-import static org.hamcrest.Matchers.is;
 
 
 // TODO: uncomment and implement methods
@@ -54,7 +53,32 @@ class ProductServiceControllerTest_MockMvc {
 
     @Test
     void givenProducts_whenValidCreateProduct_thenIsCreatedAndHaveId() throws Exception {
+        Product newProd = new Product(null, "New Fake product", "111-222-3333");
 
+        mvc.perform(post("/products")
+                        .accept(MediaType.APPLICATION_JSON)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(JsonUtil.asJsonString(newProd))
+                )
+                .andDo(MockMvcResultHandlers.print())
+                .andExpect(status().isCreated())
+                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.id", greaterThan(0)));
+    }
+
+    @Test
+    void givenProducts_whenValidCreateIvalidaProduct_thenPreconditionFalied() throws Exception {
+        Product newProd = new Product(null, "New Fake Product", "111-222-333");
+
+        mvc.perform(post("/products")
+                        .accept(MediaType.APPLICATION_JSON)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(JsonUtil.asJsonString(newProd))
+                )
+                .andDo(MockMvcResultHandlers.print())
+                .andExpect(status().isPreconditionFailed())
+                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.serial").exists());
     }
 
 }
