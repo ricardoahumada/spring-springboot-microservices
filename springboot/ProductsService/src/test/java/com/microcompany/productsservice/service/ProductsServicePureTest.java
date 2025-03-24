@@ -31,8 +31,8 @@ import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
 @ExtendWith(SpringExtension.class)
 //@Import(ProductsService.class)
-//@ExtendWith(MockitoExtension.class)
-//@MockitoSettings(strictness = Strictness.LENIENT)
+//@ExtendWith(MockitoExtension.class) // más puro
+//@MockitoSettings(strictness = Strictness.LENIENT) // más puro
 public class ProductsServicePureTest {
 
     @TestConfiguration
@@ -43,11 +43,11 @@ public class ProductsServicePureTest {
         }
     }
 
-    //    @InjectMocks
+    //    @InjectMocks // más puro
     @Autowired
     ProductsService prodService;
 
-    //    @Mock
+    //    @Mock // más puro
     @MockBean
     ProductsRepository productsRepositoryMock;
 
