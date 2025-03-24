@@ -31,7 +31,7 @@ public interface IProductServiceController {
     @RequestMapping(value = "", method = RequestMethod.GET, produces = {MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE})
     ResponseEntity getAllProducts(
             @Parameter(name = "filtro", description = "texto de filtrado 3-20 chars", example = "Hola")
-            @Size(min = 3, max = 10) @RequestParam(value = "nombrewith", defaultValue = "") String filtro
+            /*@Size(min = 3, max = 10)*/ @RequestParam(value = "nombrewith", defaultValue = "") String filtro
     );
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = {MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE})

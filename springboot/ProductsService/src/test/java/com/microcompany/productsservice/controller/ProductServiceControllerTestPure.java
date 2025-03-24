@@ -8,16 +8,16 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.jdbc.Sql;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
 import java.util.List;
 
-// TODO: uncomment and implement methods
-@SpringBootTest
-@Sql(value = "classpath:testing.sql")
-class ProductServiceControllerTest {
+import static org.assertj.core.api.Assertions.assertThat;
 
-    @Autowired
+// TODO: uncomment and implement methods
+//@SpringBootTest
+@Sql(value = "classpath:testing.sql")
+class ProductServiceControllerTestPure {
+
+    
     private ProductServiceController controller;
 
     @Test
