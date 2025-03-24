@@ -67,7 +67,7 @@ class ProductServiceControllerTest_MockMvc {
     }
 
     @Test
-    void givenProducts_whenValidCreateIvalidaProduct_thenPreconditionFalied() throws Exception {
+    void givenProducts_whenInvalidCreateProduct_thenPreconditionFalied() throws Exception {
         Product newProd = new Product(null, "New Fake Product", "111-222-333");
 
         mvc.perform(post("/products")
