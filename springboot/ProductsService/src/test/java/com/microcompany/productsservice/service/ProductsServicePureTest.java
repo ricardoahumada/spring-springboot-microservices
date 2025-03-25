@@ -62,6 +62,7 @@ public class ProductsServicePureTest {
                 new Product(2l, "Fake prod 2", "111-222-4444"),
                 new Product(3l, "Fake prod 3", "111-222-555")
         );
+
         Mockito.when(productsRepositoryMock.findByNameContaining("Fake")).thenReturn(productsFake);
         Mockito.when(productsRepositoryMock.findByNameContaining("a")).thenReturn(null);
 

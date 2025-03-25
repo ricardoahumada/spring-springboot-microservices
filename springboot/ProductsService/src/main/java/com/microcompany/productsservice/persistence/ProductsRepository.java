@@ -8,6 +8,7 @@ import java.util.List;
 
 public interface ProductsRepository extends JpaRepository<Product, Long> {
     List<Product> findByNameContaining(String name);
+
     @Query("select p from Product p where p.name = ?1")
     Product findByName(String name);
 }

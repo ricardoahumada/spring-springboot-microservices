@@ -4,11 +4,14 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.microcompany.productsservice.ProductsServiceApplication;
 import com.microcompany.productsservice.model.Product;
 import com.microcompany.productsservice.persistence.ProductsRepository;
+import com.microcompany.productsservice.service.ProductsService;
 import com.microcompany.productsservice.util.JsonUtil;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.web.servlet.MockMvc;
@@ -33,6 +36,7 @@ class ProductServiceControllerTest_MockMvc {
 
     @Autowired
     private MockMvc mvc;
+
 
     @Test
     public void givenProducts_whenGetProducts_thenStatus200() throws Exception {

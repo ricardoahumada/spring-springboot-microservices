@@ -1,6 +1,7 @@
 package com.microcompany.productsservice.controller;
 
 import com.microcompany.productsservice.model.Product;
+import com.microcompany.productsservice.model.StatusMessage;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -52,6 +53,21 @@ public class ProductServiceTestRestTemplate {
 
         System.out.println(response.getBody());
         assertThat(response.getBody()).extracting(Product::getName).contains("Prod Test 1");
+
+    }
+
+    @Test
+    public void givenUrl_whenGetProductsBadQuery_then404() throws Exception {
+        HttpHeaders header = new HttpHeaders();
+        header.set("ACCEPT", MediaType.APPLICATION_JSON_VALUE);
+        String text = "a";
+        ResponseEntity<StatusMessage> response = restTemplate.getForEntity("http://localhost:" + port + "/products?nombrewith=" + text, StatusMessage.class, header);
+
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
+        assertThat(response.getHeaders().getContentType()).isEqualTo(MediaType.APPLICATION_JSON);
+
+        System.out.println(response.getBody());
+        assertThat(response.getBody()).extracting(StatusMessage::getMessage).isEqualTo("No hay productos");
 
     }
 
