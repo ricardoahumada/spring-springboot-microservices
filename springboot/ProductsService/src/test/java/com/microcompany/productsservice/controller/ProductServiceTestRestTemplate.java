@@ -3,6 +3,8 @@ package com.microcompany.productsservice.controller;
 import com.microcompany.productsservice.model.Product;
 import com.microcompany.productsservice.model.StatusMessage;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -56,11 +58,15 @@ public class ProductServiceTestRestTemplate {
 
     }
 
-    @Test
-    public void givenUrl_whenGetProductsBadQuery_then404() throws Exception {
+    //    @Test
+    @ParameterizedTest
+    @ValueSource(strings = {"a", "x", "y"})
+    public void givenUrl_whenGetProductsBadQuery_then404(String text) throws Exception {
         HttpHeaders header = new HttpHeaders();
         header.set("ACCEPT", MediaType.APPLICATION_JSON_VALUE);
-        String text = "a";
+
+//        String text = "a";
+
         ResponseEntity<StatusMessage> response = restTemplate.getForEntity("http://localhost:" + port + "/products?nombrewith=" + text, StatusMessage.class, header);
 
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
