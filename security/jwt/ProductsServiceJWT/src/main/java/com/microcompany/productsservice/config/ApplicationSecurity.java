@@ -76,8 +76,8 @@ public class ApplicationSecurity {
                                 ).permitAll() // HABILITAR ESPACIOS LIBRES
 //                        .antMatchers("/**").permitAll() // BARRA LIBRE
 //                        .antMatchers("/products/**").hasAuthority(ERole.USER.name())
-                                .antMatchers(HttpMethod.GET, "/products/**").hasAnyAuthority(ERole.USER.name(), ERole.ADMIN.name())//Para acceder a productos debe ser USER
-                                .antMatchers("/products/**").hasAnyAuthority(ERole.ADMIN.name()) //admin puede hacer de todo
+                                .antMatchers(HttpMethod.GET, "/products/**").hasAnyAuthority(ERole.USER.name(), ERole.ADMIN.name(), ERole.CLIENTE.name(), ERole.GESTOR.name())//Para acceder a productos debe ser USER
+                                .antMatchers("/products/**").hasAnyAuthority(ERole.ADMIN.name(), ERole.GESTOR.name()) //admin puede hacer de todo
                                 .anyRequest().authenticated()
                 );
 

@@ -1,0 +1,380 @@
+{
+    "info": {
+        "name": "RESTer",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    },
+    "item": [        
+        {
+            "name": "Spring Boot",
+            "item": [
+                {
+                    "name": "accounts",
+                    "item": [
+                        {
+                            "request": {
+                                "url": "http://localhost:9900/api/accounts/1",
+                                "method": "DELETE",
+                                "header": [
+                                    {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                    }
+                                ]
+                            },
+                            "id": "rester-43",
+                            "name": "del"
+                        },
+                        {
+                            "request": {
+                                "url": "http://localhost:9900/api/accounts/user/1",
+                                "method": "DELETE",
+                                "header": [
+                                    {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                    }
+                                ]
+                            },
+                            "id": "rester-45",
+                            "name": "del by owner"
+                        },
+                        {
+                            "request": {
+                                "url": "http://localhost:9900/api/accounts",
+                                "method": "GET",
+                                "header": [
+                                    {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                    }
+                                ]
+                            },
+                            "id": "rester-40",
+                            "name": "get all"
+                        },
+                        {
+                            "request": {
+                                "url": "http://localhost:9900/api/accounts/1",
+                                "method": "GET",
+                                "header": [
+                                    {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                    }
+                                ]
+                            },
+                            "id": "rester-1",
+                            "name": "get one"
+                        },
+                        {
+                            "request": {
+                                "url": "http://localhost:9900/api/accounts",
+                                "method": "POST",
+                                "header": [
+                                    {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                    }
+                                ],
+                                "body": {
+                                    "mode": "raw",
+                                    "raw": "{\"type\":\"Personal\",\"opening_date\":\"2023-10-02\",\"balance\": 200, \"owner_id\": 4}"
+                                }
+                            },
+                            "id": "rester-41",
+                            "name": "post"
+                        },
+                        {
+                            "request": {
+                                "url": "http://localhost:9900/api/accounts/1",
+                                "method": "PUT",
+                                "header": [
+                                    {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                    }
+                                ],
+                                "body": {
+                                    "mode": "raw",
+                                    "raw": "{\"type\":\"Personal\",\"opening_date\":\"2023-10-02\",\"balance\": 200, \"owner_id\": 4}"
+                                }
+                            },
+                            "id": "rester-2",
+                            "name": "put"
+                        },
+                        {
+                            "request": {
+                                "url": "http://localhost:9900/api/accounts/withdraw/2?amount=20&ownerId=2",
+                                "method": "PUT",
+                                "header": [
+                                    {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                    }
+                                ],
+                                "body": {
+                                    "mode": "raw",
+                                    "raw": "{\"type\":\"Personal\",\"opening_date\":\"2023-10-02\",\"balance\": 200, \"owner_id\": 4}"
+                                }
+                            },
+                            "id": "rester-42",
+                            "name": "withdraw"
+                        }
+                    ]
+                },
+                {
+                    "request": {
+                        "url": "http://localhost:9090/auth/login",
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"email\":\"r@r.com\",\"password\":\"pa55wrd\"}"
+                        }
+                    },
+                    "id": "rester-8",
+                    "name": "authenticate"
+                },
+                {
+                    "name": "customers",
+                    "item": [
+                        {
+                            "request": {
+                                "url": "http://localhost:9200/customers",
+                                "method": "GET",
+                                "header": [
+                                    {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                    }
+                                ]
+                            },
+                            "id": "rester-48",
+                            "name": "get all"
+                        },
+                        {
+                            "request": {
+                                "url": "http://localhost:9200/customers",
+                                "method": "POST",
+                                "header": [
+                                    {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                    }
+                                ],
+                                "body": {
+                                    "mode": "raw",
+                                    "raw": "{\"name\":\"new user\",\"email\":\"nn.com\",\"password\":\"passn\"}"
+                                }
+                            },
+                            "id": "rester-49",
+                            "name": "post"
+                        }
+                    ]
+                },
+                {
+                    "request": {
+                        "url": "http://127.0.0.1:9000/oauth2/token",
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/x-www-form-urlencoded"
+                            },
+                            {
+                                "key": "Authorization",
+                                "value": "Basic Y2xpZW50MTpteUNsaWVudFNlY3JldFZhbHVl"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "grant_type=authorization_code&code=jvW4Ok--W_hbHgoOju7Xjxmyo5qIssVX_-hmEwD317QGaN93UumPnZ0hYgwGvUXNy09kx05nGj2HJHG8frR_m2LcjpnqY5_6vVx3a0iraghc4P1GXMEBxkXOVwCtzmi5&redirect_uri=http%3A%2F%2F127.0.0.1%3A8080%2Fauthorized"
+                        }
+                    },
+                    "id": "rester-16",
+                    "name": "oauth: get token"
+                },
+                {
+                    "name": "orders",
+                    "item": [
+                        {
+                            "request": {
+                                "url": "http://localhost:9100/orders",
+                                "method": "GET",
+                                "header": [
+                                    {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                    }
+                                ]
+                            },
+                            "id": "rester-11",
+                            "name": "get all"
+                        },
+                        {
+                            "request": {
+                                "url": "http://localhost:9100/orders",
+                                "method": "POST",
+                                "header": [
+                                    {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                    }
+                                ],
+                                "body": {
+                                    "mode": "raw",
+                                    "raw": "{\"product\":1,\"description\":\"New order\",\"quantity\":20}"
+                                }
+                            },
+                            "id": "rester-12",
+                            "name": "post"
+                        }
+                    ]
+                },
+                {
+                    "request": {
+                        "url": "http://localhost:9100/actuator/refresh",
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ]
+                    },
+                    "id": "rester-13",
+                    "name": "post refresh actuator"
+                },
+                {
+                    "name": "products",
+                    "item": [
+                        {
+                            "request": {
+                                "url": "http://localhost:9090/products/1",
+                                "method": "DELETE",
+                                "header": [
+                                    {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                    }
+                                ]
+                            },
+                            "id": "rester-4",
+                            "name": "del"
+                        },
+                        {
+                            "request": {
+                                "url": "http://localhost:9090/products",
+                                "method": "GET",
+                                "header": [
+                                    {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                    }
+                                ]
+                            },
+                            "id": "rester-9",
+                            "name": "get all - token"
+                        },
+                        {
+                            "request": {
+                                "url": "http://localhost:9090/products/1",
+                                "method": "GET",
+                                "header": [
+                                    {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                    }
+                                ],
+                                "body": {
+                                    "mode": "raw",
+                                    "raw": "{\"name\":\"New product\"}"
+                                }
+                            },
+                            "id": "rester-5",
+                            "name": "get one"
+                        },
+                        {
+                            "request": {
+                                "url": "http://localhost:9090/products?language=es",
+                                "method": "POST",
+                                "header": [
+                                    {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                    }
+                                ],
+                                "body": {
+                                    "mode": "raw",
+                                    "raw": "{\"name\":\"New product\",\"serial\":\"123-123-1234\"}"
+                                }
+                            },
+                            "id": "rester-44",
+                            "name": "post new"
+                        },
+                        {
+                            "request": {
+                                "url": "http://localhost:9090/products/1",
+                                "method": "PUT",
+                                "header": [
+                                    {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                    }
+                                ],
+                                "body": {
+                                    "mode": "raw",
+                                    "raw": "{\"name\":\"Modif product\"}"
+                                }
+                            },
+                            "id": "rester-3",
+                            "name": "put"
+                        }
+                    ]
+                },
+                {
+                    "name": "users",
+                    "item": [
+                        {
+                            "request": {
+                                "url": "http://localhost:9090/users",
+                                "method": "GET",
+                                "header": [
+                                    {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                    }
+                                ]
+                            },
+                            "id": "rester-7",
+                            "name": "get all"
+                        },
+                        {
+                            "request": {
+                                "url": "http://localhost:9090/users",
+                                "method": "POST",
+                                "header": [
+                                    {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                    }
+                                ],
+                                "body": {
+                                    "mode": "raw",
+                                    "raw": "{\"email\":\"r@r.com\",\"password\":\"pa55wrd\",\"role\":\"USER\"}"
+                                }
+                            },
+                            "id": "rester-6",
+                            "name": "post"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
