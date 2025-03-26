@@ -24,14 +24,15 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http.csrf(csrf -> csrf.disable());
+        http.csrf(csrf -> csrf.disable())
+                .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 
         http.authorizeHttpRequests(
                 (request) -> request
 //                        .anyRequest().permitAll()
                         .antMatchers("/auth/login").permitAll()
                         .anyRequest().authenticated()
-        ).httpBasic();
+        ).httpBasic(Customizer.withDefaults());
 
         return http.build();
     }
