@@ -15,7 +15,7 @@ import org.springframework.security.web.SecurityFilterChain;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
-//    @Bean
+    @Bean
     public AuthenticationManager authenticationManager(HttpSecurity http) throws Exception {
         return http.getSharedObject(AuthenticationManagerBuilder.class)
                 .build();
@@ -24,8 +24,10 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        http.csrf(csrf -> csrf.disable());
+
         http.authorizeHttpRequests(
-                (request)->request
+                (request) -> request
 //                        .anyRequest().permitAll()
                         .antMatchers("/auth/login").permitAll()
                         .anyRequest().authenticated()
