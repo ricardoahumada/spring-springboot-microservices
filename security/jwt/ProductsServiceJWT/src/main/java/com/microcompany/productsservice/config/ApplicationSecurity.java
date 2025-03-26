@@ -11,6 +11,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -23,6 +24,7 @@ import javax.servlet.http.HttpServletResponse;
 
 
 @Configuration
+@EnableMethodSecurity(securedEnabled = false)
 public class ApplicationSecurity {
     private static final Logger logger = LoggerFactory.getLogger(ApplicationSecurity.class);
 
@@ -76,8 +78,8 @@ public class ApplicationSecurity {
                                 ).permitAll() // HABILITAR ESPACIOS LIBRES
 //                        .antMatchers("/**").permitAll() // BARRA LIBRE
 //                        .antMatchers("/products/**").hasAuthority(ERole.USER.name())
-                                .antMatchers(HttpMethod.GET, "/products/**").hasAnyAuthority(ERole.USER.name(), ERole.ADMIN.name(), ERole.CLIENTE.name(), ERole.GESTOR.name())//Para acceder a productos debe ser USER
-                                .antMatchers("/products/**").hasAnyAuthority(ERole.ADMIN.name(), ERole.GESTOR.name()) //admin puede hacer de todo
+                                .antMatchers(HttpMethod.GET, "/products/**").hasAnyAuthority(ERole.USER.name(), ERole.CLIENTE.name(), ERole.GESTOR.name())//Para acceder a productos debe ser USER
+//                                .antMatchers("/products/**").hasAnyAuthority(ERole.ADMIN.name(), ERole.GESTOR.name()) //admin puede hacer de todo
                                 .anyRequest().authenticated()
                 );
 
