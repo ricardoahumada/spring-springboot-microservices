@@ -51,6 +51,7 @@ public class ApplicationSecurity {
     }
 
     @Bean
+    @Profile("dev") // para diferenciar de test
     public AuthenticationManager authenticationManager(
             AuthenticationConfiguration authConfig
     ) throws Exception {
@@ -59,7 +60,7 @@ public class ApplicationSecurity {
     }
 
     @Bean
-    @Profile("dev")
+    @Profile("dev") // para diferenciar de test
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.csrf(csrf -> csrf.disable())
                 .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
