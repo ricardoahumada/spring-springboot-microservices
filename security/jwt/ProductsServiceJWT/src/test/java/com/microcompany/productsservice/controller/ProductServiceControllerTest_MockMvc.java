@@ -53,15 +53,18 @@ class ProductServiceControllerTest_MockMvc {
     @Autowired
     private ProductsRepository repository;
 
-//    Sobreescribimos configuración de seguridad para perfil test
+    //    Sobreescribimos configuración de seguridad para perfil test
     @TestConfiguration
     static class SecurotyAltConf {
         @Bean
         @Profile("test")
         public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-            http.authorizeHttpRequests((requests) -> requests
-                    .antMatchers("/**").permitAll()
-            );
+            http
+                    .authorizeRequests()
+                    .anyRequest().permitAll() // Permite todas las solicitudes
+                    .and()
+                    .csrf().disable(); // Desactiva CSRF para simplificar las pruebas
+
             return http.build();
         }
     }

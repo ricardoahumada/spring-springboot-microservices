@@ -26,7 +26,7 @@ public interface IProductServiceController {
 
     @GetMapping("")
 //    @Secured({"ROLE_ADMIN"})
-    @PreAuthorize("hasAuthority('ADMIN') OR hasAuthority('USER')")
+//    @PreAuthorize("hasAuthority('ADMIN') OR hasAuthority('USER')")
 //    @PreAuthorize("authentication.principal.username == 'admin@mail.com'")
     public ResponseEntity<List<Product>> getAll(@RequestParam(required = false) String text);
 

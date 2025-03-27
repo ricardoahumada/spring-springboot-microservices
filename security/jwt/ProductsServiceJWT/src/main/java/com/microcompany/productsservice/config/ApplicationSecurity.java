@@ -51,7 +51,6 @@ public class ApplicationSecurity {
     }
 
     @Bean
-    @Profile("dev") // para diferenciar de test
     public AuthenticationManager authenticationManager(
             AuthenticationConfiguration authConfig
     ) throws Exception {
@@ -60,7 +59,7 @@ public class ApplicationSecurity {
     }
 
     @Bean
-    @Profile("dev") // para diferenciar de test
+    @Profile({"dev", "prod"}) // para diferenciar de test
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.csrf(csrf -> csrf.disable())
                 .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
@@ -81,7 +80,7 @@ public class ApplicationSecurity {
                                 ).permitAll() // HABILITAR ESPACIOS LIBRES
 //                        .antMatchers("/**").permitAll() // BARRA LIBRE
 //                        .antMatchers("/products/**").hasAuthority(ERole.USER.name())
-                                .antMatchers(HttpMethod.GET, "/products/**").hasAnyAuthority(ERole.USER.name(), ERole.CLIENTE.name(), ERole.GESTOR.name())//Para acceder a productos debe ser USER
+                                .antMatchers(HttpMethod.GET, "/products/**").hasAnyAuthority(ERole.USER.name(), ERole.ADMIN.name(), ERole.CLIENTE.name(), ERole.GESTOR.name())//Para acceder a productos debe ser USER
                                 .antMatchers("/products/**").hasAnyAuthority(ERole.ADMIN.name(), ERole.GESTOR.name()) //admin puede hacer de todo
                                 .anyRequest().authenticated()
                 );
