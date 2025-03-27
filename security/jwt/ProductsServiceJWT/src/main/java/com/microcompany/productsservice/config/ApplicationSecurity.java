@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -58,6 +59,7 @@ public class ApplicationSecurity {
     }
 
     @Bean
+    @Profile("dev")
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.csrf(csrf -> csrf.disable())
                 .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
@@ -79,7 +81,7 @@ public class ApplicationSecurity {
 //                        .antMatchers("/**").permitAll() // BARRA LIBRE
 //                        .antMatchers("/products/**").hasAuthority(ERole.USER.name())
                                 .antMatchers(HttpMethod.GET, "/products/**").hasAnyAuthority(ERole.USER.name(), ERole.CLIENTE.name(), ERole.GESTOR.name())//Para acceder a productos debe ser USER
-//                                .antMatchers("/products/**").hasAnyAuthority(ERole.ADMIN.name(), ERole.GESTOR.name()) //admin puede hacer de todo
+                                .antMatchers("/products/**").hasAnyAuthority(ERole.ADMIN.name(), ERole.GESTOR.name()) //admin puede hacer de todo
                                 .anyRequest().authenticated()
                 );
 
