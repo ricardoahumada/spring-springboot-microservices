@@ -34,9 +34,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK) // comentar si extendemos
-@AutoConfigureMockMvc // comentar si extendemos
-@TestInstance(TestInstance.Lifecycle.PER_CLASS) // comentar si extendemos
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK) // comentar si extendemos de TokenTesting
+@AutoConfigureMockMvc // comentar si extendemos de TokenTesting
+@TestInstance(TestInstance.Lifecycle.PER_CLASS) // comentar si extendemos de TokenTesting
 @Sql("classpath:data_testing.sql")
 class AuthServiceTest /*extends TokenTesting*/ {
 
@@ -52,12 +52,12 @@ class AuthServiceTest /*extends TokenTesting*/ {
 
     /*** Cuando no extendemos de TokenTesting ***/
 
-  @Autowired
+    @Autowired
     PasswordEncoder passwordEncoder;
 
     private String accessToken = null;
 
-   @BeforeAll
+    @BeforeAll
     public void SetUpUser() {
         // Create user
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
