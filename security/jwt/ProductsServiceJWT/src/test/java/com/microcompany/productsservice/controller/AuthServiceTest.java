@@ -46,8 +46,8 @@ class AuthServiceTest /*extends TokenTesting*/ {
     @Autowired
     private UserRepository userRepository;
 
-    private String email = "user@email.com";
-    private String password = "upass";
+    private String email = "user@mail.com";
+    private String password = "my_pass";
 
 
     /*** Cuando no extendemos de TokenTesting ***/

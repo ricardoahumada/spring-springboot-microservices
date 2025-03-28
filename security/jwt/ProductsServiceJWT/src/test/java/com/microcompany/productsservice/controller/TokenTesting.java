@@ -37,8 +37,8 @@ public abstract class TokenTesting {
     @Autowired
     private UserRepository userRepository;
 
-    private String email = "user@email.com";//"t@t.com";
-    private String password = "upass";//""tpasswrd";
+    private String email = "user@mail.com";
+    private String password = "my_pass";
     public String accessToken = null;
 
     @Autowired
