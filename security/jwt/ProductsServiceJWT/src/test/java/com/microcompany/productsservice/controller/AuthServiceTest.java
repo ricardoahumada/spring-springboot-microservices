@@ -34,11 +34,11 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK) // comentar si extendemos de TokenTesting
-@AutoConfigureMockMvc // comentar si extendemos de TokenTesting
-@TestInstance(TestInstance.Lifecycle.PER_CLASS) // comentar si extendemos de TokenTesting
+//@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK) // comentar si extendemos de TokenTesting
+//@AutoConfigureMockMvc // comentar si extendemos de TokenTesting
+//@TestInstance(TestInstance.Lifecycle.PER_CLASS) // comentar si extendemos de TokenTesting
 @Sql("classpath:data_testing.sql")
-class AuthServiceTest /*extends TokenTesting*/ {
+class AuthServiceTest extends TokenTesting {
 
     @Autowired
     private MockMvc mvc;
@@ -46,11 +46,10 @@ class AuthServiceTest /*extends TokenTesting*/ {
     @Autowired
     private UserRepository userRepository;
 
-    private String email = "user@mail.com";
-    private String password = "my_pass";
-
-
     /*** Cuando no extendemos de TokenTesting ***/
+
+    /*private String email = "user@mail.com";
+    private String password = "my_pass";
 
     @Autowired
     PasswordEncoder passwordEncoder;
@@ -60,8 +59,6 @@ class AuthServiceTest /*extends TokenTesting*/ {
     @BeforeAll
     public void SetUpUser() {
         // Create user
-        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-
         String enc_password = passwordEncoder.encode(password);
 
         User aUser = new User(null, email, enc_password, ERole.USER);
@@ -70,7 +67,6 @@ class AuthServiceTest /*extends TokenTesting*/ {
 
     @BeforeEach
     public void setUp() throws Exception {
-
 
         // Get Token
         AuthRequest authRequest = new AuthRequest(email, password);
@@ -91,7 +87,7 @@ class AuthServiceTest /*extends TokenTesting*/ {
         System.out.println("JWT Tokem: " + response.toString());
 
         accessToken = response.getAccessToken();
-    }
+    }*/
     /*** FIN: Cuando no extendemos de TokenTesting ***/
 
 
