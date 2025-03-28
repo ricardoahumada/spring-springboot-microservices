@@ -55,7 +55,7 @@ class ProductServiceControllerTest_MockMvc {
 
     //    Sobreescribimos configuración de seguridad para perfil test
     @TestConfiguration
-    static class SecurotyAltConf {
+    static class SecurityAltConf {
         @Bean
         @Profile("test")
         public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
